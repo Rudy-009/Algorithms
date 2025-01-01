@@ -25,9 +25,9 @@
         - 조건 2. head 50보다 적은 요소가 있을 때,
         - removeFirst(50)을 호출하여 head앞의 50개의 데이터를 제거하고 tail =- head, head = 0
 
-## Implementaion
+# Implementaion
 
-### Basic Queue Implementation
+## Basic Queue Implementation
 ```swift
 struct Queue<T> {
     private var data = [T]()
@@ -58,7 +58,7 @@ struct Queue<T> {
 }
 ```
 
-### Optimized Queue with Two-Pointer
+## Optimized Queue with Two-Pointer
 ```swift
 struct Queue<T> {
     private var data = [T]() 
