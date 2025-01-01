@@ -25,3 +25,15 @@ struct Queue<T> {
         }
     }
 }
+
+var queue: Queue<Int> = Queue() 
+
+queue.enqueue(10)
+queue.enqueue(20)
+queue.enqueue(30)
+
+print(queue.front!)
+print(queue.dequeue()!)
+print(queue.dequeue()!)
+print(queue.dequeue()!)
+print(queue.isEmpty)
