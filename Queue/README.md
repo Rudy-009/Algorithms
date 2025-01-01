@@ -87,9 +87,6 @@ struct Queue<T> {
             let frontElement = data[head]
             head += 1
 
-            // 메모리 최적화
-            // 1. head 앞에 50개의 데이터가 있고,
-            // 2. head 50보다 적은 요소가 있을 때,
             if head > 50 && head * 2 > data.count {
                 data.removeFirst(head) // 50개의 
                 tail -= head
@@ -108,22 +105,16 @@ struct Queue<T> {
 ```swift
 var queue = Queue<Int>()
 
-// Enqueue elements
 queue.enqueue(10)
 queue.enqueue(20)
 queue.enqueue(30)
 
-// Access front element
 print(queue.front!) // Output: 10
 
-// Dequeue elements
 print(queue.dequeue()!) // Output: 10
 print(queue.dequeue()!) // Output: 20
 
-// Check if the queue is empty
 print(queue.isEmpty) // Output: false
 
-// Dequeue the last element and check again
-print(queue.dequeue()!) // Output: 30
 print(queue.isEmpty) // Output: true
 ```
