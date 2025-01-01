@@ -22,9 +22,16 @@ struct Queue<T> {
 
     mutating func dequeue() -> T? {
         if !isEmpty {
-            let front = data[head]
+            let frontElement = data[head]
             head += 1
-            return front
+
+            if head > 50 && head * 2 > data.count {
+                data.removeFirst(head)
+                tail -= head
+                head = 0
+            }
+
+            return frontElement
         } else {
             return nil
         }

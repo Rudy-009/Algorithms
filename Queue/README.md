@@ -1,22 +1,129 @@
 # Queue
 
+> Queue는 FIFO(First In, First Out) 원칙을 따르는 자료구조로, 가장 먼저 추가된 데이터가 가장 먼저 처리된다. 주로 데이터 처리 순서를 유지하거나 작업 대기열을 관리하는 데 사용한다.
+
+# Array Based Queue's Operation Complexity
 ||Enqueue|Dequeue|
 |---|---|---|
 |Big-O|O(1)|O(n)|
 
-Queue의 Dequeue 연산이 O(n)인 이유는 0번째 인덱스를 삭제 한 후 다음 요소들을 복사하여 앞의 인덱스의 값으로 붙여 넣는 연산을 n - 1번 하기 때문에 O(n) 이다.
+배열 기반 Queue에서 dequeue() 연산은 배열의 첫 번째 요소를 제거한 후, 나머지 요소들을 앞으로 이동시키는 복사 연산이 필요하다. 이 과정에서 n−1번의 연산이 발생하므로 시간 복잡도는 O(n)이다.
 
-해결 방법)
-1. Linked List : pop 연산의 시간 복잡도는 O(1)이다.
-2. 공간 복잡도를 늘리는 대신 시간 복잡도를 O(1)로 줄일 수 있는 방법이 있다. 이는 코딩 테스트에서 조금이라도 연산 시간을 줄이기 위함이다.
+## Optimization Methods
+### 1. Linked List
+    - 장점: Dequeue 연산의 시간 복잡도는 O(1)로 줄일 수 있다.
+    - 단점:
+### 2. Two-Pointer Approach
+    - head, tail이라는 인덱스를 이용하여 배열 내의 삭제연산 없이 인덱스의 값 변화(O(1))만으로 Dequeue 연산을 구현하는 방법.
+    - head : 첫 번째 인덱스를 가리킴
+    - tail : 마지막 인덱스를 가리킴
+    - Queue가 비어있는지 확인하는 조건 : 
+       tail - head == 0 : empty
+       tail - head \> 0 : not empty
+    - 메모리 최적화 추가 :
+        - 조건 1. head 앞에 50개의 데이터가 있고,
+        - 조건 2. head 50보다 적은 요소가 있을 때,
+        - removeFirst(50)을 호출하여 head앞의 50개의 데이터를 제거하고 tail =- head, head = 0
 
-AdvancedQueue.swift 는 Dequeue연산 이후, first의 요소를 삭제하는 대신 first를 가리키는 인덱스를 다음 요소로 움직이며 연산 시간을 1로 줄이는 작업이다.
+## Implementaion
 
-head : 첫 번째 인덱스를 가리킴
-last : 마지막 인덱스를 가리킴
+### Basic Queue Implementation
+```swift
+struct Queue<T> {
+    private var data = [T]()
+    
+    var count: Int {
+        return data.count
+    }
+    
+    var front: T? {
+        return data.first
+    }
+    
+    var isEmpty: Bool {
+        return data.isEmpty
+    }
+    
+    mutating func enqueue(_ element: T) {
+        data.append(element)
+    }
+    
+    mutating func dequeue() -> T? {
+        if !isEmpty {
+            return data.removeFirst()
+        } else {
+            return nil
+        }
+    }
+}
+```
 
-last - head
+### Optimized Queue with Two-Pointer
+```swift
+struct Queue<T> {
+    private var data = [T]() 
+    private var head = 0
+    private var tail = 0
 
-== 0 : empty
+    var count: Int {
+        return data.count
+    }
 
-\> 0 : not empty
+    var front: T? {
+        return data[head]
+    }
+
+    var isEmpty: Bool {
+        return tail - head == 0 
+    }
+
+    mutating func enqueue(_ element: T) {
+        data.append(element)
+        tail += 1
+    }
+
+    mutating func dequeue() -> T? {
+        if !isEmpty {
+            let frontElement = data[head]
+            head += 1
+
+            // 메모리 최적화
+            // 1. head 앞에 50개의 데이터가 있고,
+            // 2. head 50보다 적은 요소가 있을 때,
+            if head > 50 && head * 2 > data.count {
+                data.removeFirst(head) // 50개의 
+                tail -= head
+                head = 0
+            }
+
+            return frontElement
+        } else {
+            return nil
+        }
+    }
+}
+```
+
+### Example Usage
+```swift
+var queue = Queue<Int>()
+
+// Enqueue elements
+queue.enqueue(10)
+queue.enqueue(20)
+queue.enqueue(30)
+
+// Access front element
+print(queue.front!) // Output: 10
+
+// Dequeue elements
+print(queue.dequeue()!) // Output: 10
+print(queue.dequeue()!) // Output: 20
+
+// Check if the queue is empty
+print(queue.isEmpty) // Output: false
+
+// Dequeue the last element and check again
+print(queue.dequeue()!) // Output: 30
+print(queue.isEmpty) // Output: true
+```
