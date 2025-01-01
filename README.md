@@ -1,2 +1,2 @@
 # Algorithms
-Algorithm Repository
+> 알고리즘에 대해 정리하고 문제 풀이를 정리하는 저장소
