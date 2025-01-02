@@ -84,4 +84,44 @@ func append(value: T) {
 }
 ```
 
-### 
+### Search
+
+```swift
+func node(atIndex index: Int) -> Node<T>? {
+    if count > index {
+        if index == 0 {
+            return head!
+        } else {
+            var node = head!.next
+            for _ in 1..<index {
+                node = node?.next
+                if node == nil {
+                    break
+                }
+            }
+            return node!
+        }
+    }
+    return nil // OutOfIndex (or No Node)
+}
+```
+
+### Remove
+
+```swift
+func remove(node: Node<T>) -> T {
+    let prev = node.previous
+    let next = node.next
+
+    if let prev = prev {
+        prev.next = next
+    } else {
+        head = next
+    }
+    next?.previous = prev
+
+    node.previous = nil
+    node.next = nil
+    return node.value
+}
+```
