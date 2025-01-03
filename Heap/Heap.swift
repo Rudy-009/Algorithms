@@ -19,9 +19,9 @@ struct Heap<T> {
     }
 
     mutating func buildHeap() {
-    for index in (0 ..< count / 2).reversed() { // 5
-        siftDown(elementAtIndex: index) // 6
-    }
+        for index in (0 ..< count / 2).reversed() { // 5
+            siftDown(elementAtIndex: index) // 6
+        }
     }
 
     func root() -> T? {
