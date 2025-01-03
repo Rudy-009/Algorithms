@@ -32,4 +32,12 @@ for _ in 0..<commandsCount {
     }
 }
 
-print(String(leftStack + rightStack.reversed()))
+for le in leftStack {
+    print(le, terminator: "")
+}
+
+for re in rightStack.reversed() {
+    print(re, terminator: "")
+}
+
+print()
