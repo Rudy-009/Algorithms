@@ -33,7 +33,6 @@ degenerate case ⇒ conquer
 divide
 combine
 
-
 # Divide & Conquer Time Complexity
 
 1. 분할 정복을 표현하는 식
