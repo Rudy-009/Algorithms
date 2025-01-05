@@ -158,13 +158,6 @@ int select_kth ( int k, int s, int e ) // T(n)
 }
 ```
 
-## (5) Integer Multiplication
-
-bit : shift 연산
-
-## (6) Matrix Multiplication
-
-
 # Divide & Conquer 알고리즘의 종류
 
 ## Search
@@ -183,8 +176,6 @@ bit : shift 연산
 - FFT algorithm
 - DFT algorithm
 
----
-
 ## Multiplication
 
 - Integer multiplication (Karatsuba)
@@ -195,8 +186,6 @@ bit : shift 연산
 
 - Integer exponentiation by squaring
 - Computing large Fibonacci numbers
-
----
 
 ## Computational geometry
 
@@ -216,8 +205,6 @@ bit : shift 연산
 - Global alignment in sequence alignment
 - Maximum subarray problem
 - Finding maximum and minimum
-
----
 
 ## Data structure
 
